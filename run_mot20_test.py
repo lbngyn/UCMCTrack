@@ -4,7 +4,7 @@ if __name__ == '__main__':
 
     det_path = "det_results/mot20"
     cam_path = "cam_para/mot20"
-    gmc_path = "gmc/mot20"
+    gmc_path = "gmc/MOT20"
     out_path = "output/mot20"
     exp_name = "test"
     dataset  = "MOT20"
