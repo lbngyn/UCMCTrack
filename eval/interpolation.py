@@ -71,7 +71,7 @@ def dti(txt_path, save_path, n_min=25, n_dti=20):
             seq_results = np.vstack((seq_results, tracklet_dti))
         print("Save path is:" , save_path)
         print("seqName is:", seq_name)
-        save_seq_txt = os.path.join(save_path, seq_name)
+        save_seq_txt = seq_name
         seq_results = seq_results[1:]
         seq_results = seq_results[seq_results[:, 0].argsort()]
         write_results_score(save_seq_txt, seq_results)
