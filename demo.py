@@ -93,10 +93,6 @@ def main(args):
 
     video_out = cv2.VideoWriter('output/output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))  
 
-    # 打开一个cv的窗口，指定高度和宽度
-    cv2.namedWindow("demo", cv2.WINDOW_NORMAL)
-    cv2.resizeWindow("demo", width, height)
-
     detector = Detector()
     detector.load(args.cam_para)
 
@@ -122,18 +118,10 @@ def main(args):
 
         frame_id += 1
 
-
-        # 显示当前帧
-        cv2.imshow("demo", frame_img)
-        cv2.waitKey(1)
-
         video_out.write(frame_img)
     
     cap.release()
     video_out.release()
-    cv2.destroyAllWindows()
-
-
 
 parser = argparse.ArgumentParser(description='Process some arguments.')
 parser.add_argument('--video', type=str, default = "demo/demo.mp4", help='video file name')
