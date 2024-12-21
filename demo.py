@@ -106,7 +106,7 @@ def main(args):
         if not ret:  
             break
     
-        dets = detector.get_dets(frame_img,args.conf_thresh,class_list)
+        dets = detector.get_dets(frame_img,args.conf_thresh)
         tracker.update(dets,frame_id)
 
         for det in dets:
