@@ -87,6 +87,8 @@ class Detector:
                 self.dets[frame_id].append(det)
 
     def get_dets(self, frame_id,conf_thresh = 0,det_class = 0):
+        if frame_id not in self.dets: 
+            return []
         dets = self.dets[frame_id]
         dets = [det for det in dets if det.det_class == det_class and det.conf >= conf_thresh]
         return dets

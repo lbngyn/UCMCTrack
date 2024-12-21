@@ -51,7 +51,7 @@ def make_args():
 
     return args
 
-def run_ucmc(args, det_path = "det_results/mot17/yolox_x_ablation",
+def run_ucmc(args, det_path = f"det_results\mot17\yolov10",
                    cam_path = "cam_para/mot17",
                    gmc_path = "gmc/mot17",
                    out_path = "output/mot17",
@@ -103,6 +103,7 @@ def run_ucmc(args, det_path = "det_results/mot17/yolox_x_ablation",
     with open(result_file,"w") as f:
         for frame_id in range(1, detector.seq_length + 1):
             dets = detector.get_dets(frame_id, conf_thresh)
+            # print(f"Detection in frameid {frame_id}:", dets)
             tracker.update(dets,frame_id)
             if args.hp:
                 for i in tracker.tentative_idx:
@@ -141,4 +142,3 @@ def run_ucmc(args, det_path = "det_results/mot17/yolox_x_ablation",
     interpolate(orig_save_path, eval_path, n_min=3, n_dti=cdt, is_enable = True)
 
     print(f"Time cost: {time.time() - t1:.2f}s")
-

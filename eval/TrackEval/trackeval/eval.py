@@ -188,7 +188,7 @@ class Evaluator:
 @_timing.time
 def eval_sequence(seq, dataset, tracker, class_list, metrics_list, metric_names):
     """Function for evaluating a single sequence"""
-
+    print(seq)
     raw_data = dataset.get_raw_seq_data(tracker, seq)
     seq_res = {}
     for cls in class_list:

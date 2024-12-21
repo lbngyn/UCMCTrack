@@ -2,7 +2,7 @@ import os
 from eval.eval import eval
 
 
-dataset_path = "E:/dataset/MOT17/train"
+dataset_path = "data/MOT17/train"
 out_path = "output/mot17"
 exp_name = "val"
 
