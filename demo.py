@@ -80,7 +80,7 @@ class Detector:
 
 def main(args):
 
-    class_list = [2,5,7]
+    class_list = [2, 5, 7]
 
     cap = cv2.VideoCapture(args.video)
 
@@ -96,8 +96,10 @@ def main(args):
     detector = Detector()
     detector.load(args.cam_para)
 
-    
-    tracker = UCMCTrack(args.a, args.a, args.wx, args.wy, args.vmax, args.cdt, fps, "MOT", args.high_score,False,None)
+    tracker = UCMCTrack(args.a, args.a, args.wx, args.wy, args.vmax, args.cdt, fps, "MOT", args.high_score, False, None)
+
+    # 创建一个字典用于存储 track_id 和颜色的映射
+    track_colors = {}
 
     # 循环读取视频帧
     frame_id = 1
@@ -106,15 +108,25 @@ def main(args):
         if not ret:  
             break
     
-        dets = detector.get_dets(frame_img,args.conf_thresh)
-        tracker.update(dets,frame_id)
+        dets = detector.get_dets(frame_img, args.conf_thresh)
+        tracker.update(dets, frame_id)
 
         for det in dets:
+            # 生成或获取 track_id 对应的颜色
+            if det.track_id not in track_colors:
+                track_colors[det.track_id] = tuple(np.random.randint(0, 255, size=3).tolist())
+            color = track_colors[det.track_id]
+
             # 画出检测框
             if det.track_id > 0:
-                cv2.rectangle(frame_img, (int(det.bb_left), int(det.bb_top)), (int(det.bb_left+det.bb_width), int(det.bb_top+det.bb_height)), (0, 255, 0), 2)
+                cv2.rectangle(frame_img, 
+                              (int(det.bb_left), int(det.bb_top)), 
+                              (int(det.bb_left + det.bb_width), int(det.bb_top + det.bb_height)), 
+                              color, 2)
                 # 画出检测框的id
-                cv2.putText(frame_img, str(det.track_id), (int(det.bb_left), int(det.bb_top)), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
+                cv2.putText(frame_img, str(det.track_id), 
+                            (int(det.bb_left), int(det.bb_top - 10)), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
         frame_id += 1
 
