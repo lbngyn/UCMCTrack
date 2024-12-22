@@ -139,10 +139,10 @@ def process_video(input_path, output_path, model_path, conf_thresh, cam_para_dir
     name_without_extension = os.path.splitext(filename)[0]
     print(name_without_extension)
     os.makedirs(output_path, exist_ok=True)
-    if 'mot17' in input_path: 
+    if 'MOT17' in input_path: 
         result_path = os.path.join(output_path, name_without_extension + '-SDP.txt')
         cam_para_path = os.path.join(cam_para_dir, name_without_extension + '-SDP.txt')
-    if 'mot20' in input_path: 
+    if 'MOT20' in input_path: 
         result_path = os.path.join(output_path, name_without_extension + '.txt')
         cam_para_path = os.path.join(cam_para_dir, name_without_extension + '.txt')
     print(result_path)
