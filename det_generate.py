@@ -171,13 +171,13 @@ def process_video(input_path, output_path, model_path, conf_thresh, cam_para_dir
     print(f"Detection results saved to {result_path}")
 
 
-def process_videos_in_folder(input_folder, output_path, model_path, conf_thresh, cam_para_dir):
+def process_videos_in_folder(input_folder, output_path, model_path, conf_thresh, cam_para_dir, det_classes):
     # Duyệt qua tất cả các file trong thư mục input
     for filename in os.listdir(input_folder):
         if filename.endswith(('.mp4', '.avi', '.mov')):  # Chỉ xử lý các video
             input_video_path = os.path.join(input_folder, filename)
             print(f"Processing {input_video_path}...")
-            process_video(input_video_path, output_path, model_path, conf_thresh, cam_para_dir)
+            process_video(input_video_path, output_path, model_path, conf_thresh, cam_para_dir, det_classes)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Run YOLOv10x on video frames and save detections.")
