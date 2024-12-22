@@ -38,9 +38,9 @@ class Detector:
         self.seq_length = 0
         self.gmc = None
 
-    def load(self,cam_para_file):
+    def load(self,cam_para_file, model_path):
         self.mapper = Mapper(cam_para_file,"MOT17")
-        self.model = YOLO('/kaggle/input/yolov10x/other/default/1/yolov10x.pt')
+        self.model = YOLO(model_path)
 
     def get_dets(self, img,conf_thresh = 0,det_classes = [0]):
         
@@ -91,10 +91,10 @@ def main(args):
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
     os.makedirs('output', exist_ok=True)
-    video_out = cv2.VideoWriter('output/output.mp4', cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))  
+    video_out = cv2.VideoWriter('output/'+args.output_dir, cv2.VideoWriter_fourcc(*'mp4v'), fps, (width, height))  
 
     detector = Detector()
-    detector.load(args.cam_para)
+    detector.load(args.cam_para, args.model_path)
 
     tracker = UCMCTrack(args.a, args.a, args.wx, args.wy, args.vmax, args.cdt, fps, "MOT", args.high_score, False, None)
 
@@ -137,6 +137,7 @@ def main(args):
 
 parser = argparse.ArgumentParser(description='Process some arguments.')
 parser.add_argument('--video', type=str, default = "demo/demo.mp4", help='video file name')
+parser.add_argument('--output_dir', type=str, default = "demo.mp4", help='output video file name')
 parser.add_argument('--cam_para', type=str, default = "demo/cam_para.txt", help='camera parameter file name')
 parser.add_argument('--wx', type=float, default=5, help='wx')
 parser.add_argument('--wy', type=float, default=5, help='wy')
@@ -145,6 +146,7 @@ parser.add_argument('--a', type=float, default=100.0, help='assignment threshold
 parser.add_argument('--cdt', type=float, default=10.0, help='coasted deletion time')
 parser.add_argument('--high_score', type=float, default=0.5, help='high score threshold')
 parser.add_argument('--conf_thresh', type=float, default=0.01, help='detection confidence threshold')
+parser.add_argument('--model_path', type=str, default='/kaggle/input/yolov10x/other/default/1/yolov10x.pt', help='model_path')
 parser.add_argument('--det_classes', required=False, type=int, nargs='+', default=[0], help='List of detection classes (e.g., --det_classes 0 1 2), coco for more info')
 
 args = parser.parse_args()
