@@ -186,6 +186,7 @@ def parse_args():
     parser.add_argument('--model', type=str, required=True, help="Path to YOLOv10x model weights.")
     parser.add_argument('--conf_thresh', required=False, type=float, default=0.01, help="Confidence threshold for detections.")
     parser.add_argument('--cam_para_dir', required=False, type=str, default = "cam_para/MOT17", help='camera parameter file name')
+    parser.add_argument('--det_class', required=False, type=int, nargs='+', default=[0], help='List of detection classes (e.g., --det_class 0 1 2), coco for more info')
     return parser.parse_args()
 
 
