@@ -131,7 +131,7 @@ def main(args):
         frame_id += 1
 
         video_out.write(frame_img)
-    
+    print(frame_id)
     cap.release()
     video_out.release()
 
