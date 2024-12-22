@@ -81,34 +81,44 @@ class Detector:
         return dets
 
 def get_resolution(input_path): 
-    if '01' in input_path: 
-        return (1920,1080)
-    if '02' in input_path: 
-        return (1920,1080)
-    if '03' in input_path: 
-        return (1920,1080)
-    if '04' in input_path: 
-        return (1920,1080)
-    if '05' in input_path: 
-        return (640,480)
-    if '06' in input_path: 
-        return (640,480)
-    if '07' in input_path: 
-        return (1920,1080)
-    if '08' in input_path: 
-        return (1920,1080)
-    if '09' in input_path: 
-        return (1920,1080)
-    if '10' in input_path: 
-        return (1920,1080)
-    if '11' in input_path: 
-        return (1920,1080)
-    if '12' in input_path: 
-        return (1920,1080)
-    if '13' in input_path: 
-        return (1920,1080)
-    if '14' in input_path: 
-        return (1920,1080)
+    if 'MOT17' in input_path: 
+        if '01' in input_path: 
+            return (1920,1080)
+        if '02' in input_path: 
+            return (1920,1080)
+        if '03' in input_path: 
+            return (1920,1080)
+        if '04' in input_path: 
+            return (1920,1080)
+        if '05' in input_path: 
+            return (640,480)
+        if '06' in input_path: 
+            return (640,480)
+        if '07' in input_path: 
+            return (1920,1080)
+        if '08' in input_path: 
+            return (1920,1080)
+        if '09' in input_path: 
+            return (1920,1080)
+        if '10' in input_path: 
+            return (1920,1080)
+        if '11' in input_path: 
+            return (1920,1080)
+        if '12' in input_path: 
+            return (1920,1080)
+        if '13' in input_path: 
+            return (1920,1080)
+        if '14' in input_path: 
+            return (1920,1080)
+    if 'MOT20' in input_path: 
+        if '01' in input_path: 
+            return (1920,1080)
+        if '02' in input_path: 
+            return (1920,1080)
+        if '03' in input_path: 
+            return (1173,880)
+        if '05' in input_path: 
+            return (1654,1080)
 
 def process_video(input_path, output_path, model_path, conf_thresh, cam_para_dir, det_classes):
     # Mở video
@@ -129,8 +139,12 @@ def process_video(input_path, output_path, model_path, conf_thresh, cam_para_dir
     name_without_extension = os.path.splitext(filename)[0]
     print(name_without_extension)
     os.makedirs(output_path, exist_ok=True)
-    result_path = os.path.join(output_path, name_without_extension + '-SDP.txt')
-    cam_para_path = os.path.join(cam_para_dir, name_without_extension + '-SDP.txt')
+    if 'mot17' in input_path: 
+        result_path = os.path.join(output_path, name_without_extension + '-SDP.txt')
+        cam_para_path = os.path.join(cam_para_dir, name_without_extension + '-SDP.txt')
+    if 'mot20' in input_path: 
+        result_path = os.path.join(output_path, name_without_extension + '.txt')
+        cam_para_path = os.path.join(cam_para_dir, name_without_extension + '.txt')
     print(result_path)
 
     detector = Detector(model_path)
