@@ -108,7 +108,7 @@ def main(args):
         if not ret:  
             break
     
-        dets = detector.get_dets(frame_img, args.conf_thresh)
+        dets = detector.get_dets(frame_img, args.conf_thresh, args.det_classes)
         tracker.update(dets, frame_id)
 
         for det in dets:
@@ -145,6 +145,8 @@ parser.add_argument('--a', type=float, default=100.0, help='assignment threshold
 parser.add_argument('--cdt', type=float, default=10.0, help='coasted deletion time')
 parser.add_argument('--high_score', type=float, default=0.5, help='high score threshold')
 parser.add_argument('--conf_thresh', type=float, default=0.01, help='detection confidence threshold')
+parser.add_argument('--det_classes', required=False, type=int, nargs='+', default=[0], help='List of detection classes (e.g., --det_classes 0 1 2), coco for more info')
+
 args = parser.parse_args()
 
 main(args)
