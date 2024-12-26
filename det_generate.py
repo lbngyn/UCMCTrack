@@ -45,7 +45,7 @@ class Detector:
         self.mapper = Mapper(cam_para_file,"MOT17")
         self.model = YOLO(self.model_path)
 
-    def get_dets(self, img,conf_thresh = 0.5,det_classes = [0]):
+    def get_dets(self, img,conf_thresh = 0,det_classes = [0]):
         
         dets = []
 
@@ -53,7 +53,7 @@ class Detector:
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  
 
         # 使用 RTDETR 进行推理  
-        results = self.model(frame,imgsz = 1088)
+        results = self.model(frame,imgsz = 1088, conf=conf_thresh)
 
         det_id = 0
         for box in results[0].boxes:
@@ -198,7 +198,7 @@ def parse_args():
     parser.add_argument('--input', type=str, required=True, help="Path to folder containing videos.")
     parser.add_argument('--output', type=str, required=True, help="Path to save detection results (txt files).")
     parser.add_argument('--model', type=str, required=True, help="Path to YOLOv10x model weights.")
-    parser.add_argument('--conf_thresh', required=False, type=float, default=0.01, help="Confidence threshold for detections.")
+    parser.add_argument('--conf_thresh', required=False, type=float, default=0.0, help="Confidence threshold for detections.")
     parser.add_argument('--cam_para_dir', required=False, type=str, default = "cam_para/MOT17", help='camera parameter file name')
     parser.add_argument('--det_classes', required=False, type=int, nargs='+', default=[0], help='List of detection classes (e.g., --det_classes 0 1 2), coco for more info')
     return parser.parse_args()

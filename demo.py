@@ -42,7 +42,7 @@ class Detector:
         self.mapper = Mapper(cam_para_file,"MOT17")
         self.model = YOLO(model_path)
 
-    def get_dets(self, img,conf_thresh = 0,det_classes = [0]):
+    def get_dets(self, img,conf_thresh = 0.00,det_classes = [0]):
         
         dets = []
 
@@ -50,7 +50,7 @@ class Detector:
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  
 
         # 使用 RTDETR 进行推理  
-        results = self.model(frame,imgsz = 1088)
+        results = self.model(frame,imgsz = 1088, conf=conf_thresh)
 
         det_id = 0
         for box in results[0].boxes:
@@ -145,7 +145,7 @@ parser.add_argument('--vmax', type=float, default=10, help='vmax')
 parser.add_argument('--a', type=float, default=100.0, help='assignment threshold')
 parser.add_argument('--cdt', type=float, default=30.0, help='coasted deletion time')
 parser.add_argument('--high_score', type=float, default=0.5, help='high score threshold')
-parser.add_argument('--conf_thresh', type=float, default=0.01, help='detection confidence threshold')
+parser.add_argument('--conf_thresh', type=float, default=0.00, help='detection confidence threshold')
 parser.add_argument('--model_path', type=str, default='/kaggle/input/yolov10x/other/default/1/yolov10x.pt', help='model_path')
 parser.add_argument('--det_classes', required=False, type=int, nargs='+', default=[0], help='List of detection classes (e.g., --det_classes 0 1 2), coco for more info')
 
