@@ -53,7 +53,7 @@ class Detector:
         frame = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  
 
         # 使用 RTDETR 进行推理  
-        results = self.model(frame, imgsz = resolution, conf=conf_thresh)
+        results = self.model(frame, imgsz = resolution, conf=conf_thresh, verbose=False)
 
         det_id = 0
         for box in results[0].boxes:
