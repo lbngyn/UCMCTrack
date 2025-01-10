@@ -46,7 +46,7 @@ def make_args():
     g_u_max = args.u_max
     g_v_max = args.v_max
 
-    print(f"u_ratio = {g_u_ratio}, v_ratio = {g_v_ratio}, u_max = {g_u_max}, v_max = {g_v_max}")
+    print(f"conf_threshold = {args.conf_thresh}, u_ratio = {g_u_ratio}, v_ratio = {g_v_ratio}, u_max = {g_u_max}, v_max = {g_v_max}")
 
 
     return args
