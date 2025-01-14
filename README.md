@@ -85,6 +85,12 @@ pip install -r requirements.txt
 . run_mot20_test.bat
 ```
 
+- Run UCMCTrack on the MOT20 validation dataset and evaluate performance metrics such as IDF1, HOTA, and MOTA locally
+
+```bash
+. run_mot20_val.bat
+```
+
 - Estimating camera parameters from a single image
 
 ```bash
